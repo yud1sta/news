@@ -8,4 +8,8 @@ public interface NewsRepository extends SoftDeleteRepository<News, Integer> {
    @Transactional(readOnly = true)
    @Query("select e from #{#entityName} e where e.topic.id = ?1 and e.deleted = 0")
    News findByTopicId(Integer id);
+
+   @Transactional(readOnly = true)
+   @Query("select e from #{#entityName} e where e.topic.id = ?1 and e.deleted = 0")
+   News findByTagId(Integer id);
 }

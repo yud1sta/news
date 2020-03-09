@@ -3,6 +3,7 @@ package com.bareksa.news.controller;
 import com.bareksa.news.common.dto.*;
 import com.bareksa.news.common.utils.PageConverter;
 import com.bareksa.news.service.TopicService;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -34,7 +35,7 @@ public class TopicController {
    }
 
    @GetMapping("/topic")
-   public BaseResponse<MyPage<TopicResponseDTO>> getAll(MyPageable pageable,TopicSearchDTO searchBy) {
+   public BaseResponse<MyPage<TopicResponseDTO>> getAll(@Parameter(hidden = true) MyPageable pageable, @Parameter(hidden = true) TopicSearchDTO searchBy) {
       Page<TopicResponseDTO> res = topicService.findAll(MyPageable.convertToPageable(pageable), searchBy);
       PageConverter<TopicResponseDTO> converter = new PageConverter<>();
 
@@ -53,7 +54,7 @@ public class TopicController {
 
 
    @DeleteMapping("/topic/{id}")
-   public BaseResponse deleteLovCat(@PathVariable Integer id) {
+   public BaseResponse deleteTopic(@PathVariable Integer id) {
       topicService.delete(id);
       return BaseResponse.ok();
    }
