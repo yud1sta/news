@@ -20,8 +20,10 @@ CREATE TABLE IF NOT EXISTS `tags` (
 
 CREATE TABLE IF NOT EXISTS `news` (
     `id` int NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    `content` text,
     `topic_id` INT NOT NULL,
+    `title` varchar (255),
+    `content` text,
+    `total_view` INT ,
     `status` ENUM('draft', 'deleted', 'publish'),
     `create_time` datetime,
     `update_time` datetime,

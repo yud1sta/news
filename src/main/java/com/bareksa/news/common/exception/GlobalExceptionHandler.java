@@ -33,6 +33,20 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<BaseResponse> illegalErrorHandler(MethodArgumentNotValidException e, HttpServletRequest request) {
+        Map<String, String> errors = new HashMap<>();
+        BindingResult bindingResult = e.getBindingResult();
+        List<FieldError> fieldErrors = bindingResult.getFieldErrors();
+        String error = "";
+        if (!fieldErrors.isEmpty()) {
+            error = fieldErrors.get(0).getField() + " " + fieldErrors.get(0).getDefaultMessage();
+        }
+
+        BaseResponse errorResponse = BaseResponse.error("B001", error);
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+    }
+
     @ExceptionHandler({InvalidParamException.class})
     public ResponseEntity<BaseResponse> invalidException(InvalidParamException e, HttpServletRequest request) {
         BaseResponse errorResponse = BaseResponse.error("B002", e.getMessage());

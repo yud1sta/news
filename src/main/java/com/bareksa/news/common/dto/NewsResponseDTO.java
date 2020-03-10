@@ -7,8 +7,10 @@ import java.util.List;
 @Data
 public class NewsResponseDTO {
    private Integer id;
-   private String content;
    private String topic;
-   private Status status;
+   private String title;
+   private String content;
+   private Integer totalView;
+   private String status;
    private List<TagsForRelationDTO> tags;
 }
